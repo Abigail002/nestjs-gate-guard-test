@@ -3,3 +3,5 @@ test/
 .dockerignore
 .prettierrc
 README.md
+.git
+.gitignore
