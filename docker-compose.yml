@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  backend:
+    build: .
+    environment:
+      DATABASE_URL: "postgresql://postgres.wejgtffujkvfxxvcyggy:zR!jagJUBqRL8!2@aws-0-eu-central-1.pooler.supabase.com:5432/postgres"
+    ports:
+      - "3000:3000"
+    command: npm run start:dev
+    volumes:
+      - ./:/usr/src/app  # Monte le répertoire local

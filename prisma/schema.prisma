@@ -12,3 +12,52 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Badge {
+  id     Int    @id @default(autoincrement())
+  num    String @unique
+  userId Int
+  user   User   @relation(fields: [userId], references: [id])
+  access Access[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model Empreinte {
+  id         Int    @id @default(autoincrement())
+  empreinte1 String @unique
+  empreinte2 String @unique
+  userId     Int
+  user       User   @relation(fields: [userId], references: [id])
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model User {
+  id         Int         @id @default(autoincrement())
+  email      String      @unique
+  name       String?
+  role       String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  badges     Badge[]
+  empreintes Empreinte[]
+}
+
+model Porte {
+  id  Int    @id @default(autoincrement())
+  nom String @unique
+  access Access[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model Access {
+  id  Int    @id @default(autoincrement())
+  badgeId Int
+  badge   Badge   @relation(fields: [badgeId], references: [id])
+  porteId Int
+  porte   Porte   @relation(fields: [porteId], references: [id])
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
